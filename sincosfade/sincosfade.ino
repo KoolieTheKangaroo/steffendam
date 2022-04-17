@@ -1,7 +1,5 @@
-/*
-FADING A LED WITH SINE WAVE
-Andrea Toscano 2016
-*/
+
+
  
 // Arduino LED PIN
 #define LED_PIN 9
@@ -9,7 +7,7 @@ Andrea Toscano 2016
 #define SERIAL_BAUD 115200
  
 // Time period of fading in millisecs
-#define PERIOD 48000
+#define PERIOD 40000
 // Angular Frequency by definition
 #define OMEGA 2*PI/PERIOD
 // No Phase
@@ -28,7 +26,7 @@ unsigned long timer = 0;
  
 void setup() {
   // Uncomment for serial monitor
-  Serial.begin(SERIAL_BAUD); 
+  // Serial.begin(SERIAL_BAUD); 
  
 }
  
@@ -36,12 +34,10 @@ void loop() {
  timer = millis(); // updating time
  int ledValue = OFFSET + AMPLITUDE*(cos((OMEGA*timer)+PHASE));
  analogWrite(LED_PIN, checkValue(ledValue));
- Serial.write(ledValue);
+ // Serial.write("LED" + checkValue(ledValue));
 }
  
 // Useful to avoid LED values outside the bounds [0;255]
 int checkValue(int val) {
-  
-
   return constrain(val, MIN_VAL, MAX_VAL);
 }
