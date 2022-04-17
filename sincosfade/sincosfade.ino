@@ -41,9 +41,7 @@ void loop() {
  
 // Useful to avoid LED values outside the bounds [0;255]
 int checkValue(int val) {
-  if (val > MAX_VAL)
-    val = MAX_VAL;
-  else if(val < MIN_VAL)
-    val = MIN_VAL;
-  return val;
+  
+
+  return constrain(val, MIN_VAL, MAX_VAL);
 }
