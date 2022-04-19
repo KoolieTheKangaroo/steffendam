@@ -10,7 +10,7 @@ Mean Well HLG-150H-24A
 </details>
 <details>
 <summary>Fader</summary>
-Dalc Net DLM1224-1CV
+~~Dalc Net DLM1224-1CV~~
 </details>
 
 
