@@ -5,17 +5,17 @@
 #define LED_PIN 9
  
 // Time period of fading in millisecs
-#define PERIOD 40000
+#define PERIOD 20000
 // Angular Frequency by definition
 #define OMEGA 2*PI/PERIOD
 // No Phase
 #define PHASE 1
 // Offset of the sine wave
-#define OFFSET 229
+#define OFFSET 512
 // Amplitude of the sine wave
-#define AMPLITUDE 230
+#define AMPLITUDE 511
 // Max value (255)
-#define MAX_VAL 1023
+#define MAX_VAL 2047
 // Min value (0)
 #define MIN_VAL 0
 uint16_t icr = 0xffff;
@@ -32,7 +32,7 @@ void setup() {
   Serial.println("Value: number 0-65535");  // or 0-255 or 0-511 etc.
   OCR1A=0;
   OCR1B=0;
-  setupPWM16(10);
+  setupPWM16(11);
 }
  
 void loop() {
