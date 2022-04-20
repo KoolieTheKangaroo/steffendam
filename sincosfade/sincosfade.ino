@@ -4,7 +4,7 @@
 // Arduino LED PIN
 #define LED_PIN 9
 // Baudrate for Serial Communication
-#define SERIAL_BAUD 115200
+#define SERIAL_BAUD 9600
  
 // Time period of fading in millisecs
 #define PERIOD 40000
@@ -26,7 +26,7 @@ unsigned long timer = 0;
  
 void setup() {
   // Uncomment for serial monitor
-  // Serial.begin(SERIAL_BAUD); 
+   Serial.begin(SERIAL_BAUD); 
  
 }
  
@@ -34,7 +34,7 @@ void loop() {
  timer = millis(); // updating time
  int ledValue = OFFSET + AMPLITUDE*(cos((OMEGA*timer)+PHASE));
  analogWrite(LED_PIN, checkValue(ledValue));
- // Serial.write("LED" + checkValue(ledValue));
+ Serial.println("LED" + checkValue(ledValue));
 }
  
 // Useful to avoid LED values outside the bounds [0;255]
