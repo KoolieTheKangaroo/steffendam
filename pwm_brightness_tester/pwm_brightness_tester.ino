@@ -1,48 +1,15 @@
-
-
- 
-// Arduino LED PIN
-#define LED_PIN 9
- 
-// Time period of fading in millisecs
-#define PERIOD 40000
-// Angular Frequency by definition
-#define OMEGA 2*PI/PERIOD
-// No Phase
-#define PHASE 1
-// Offset of the sine wave
-#define OFFSET 229
-// Amplitude of the sine wave
-#define AMPLITUDE 230
-// Max value (255)
-#define MAX_VAL 1023
-// Min value (0)
-#define MIN_VAL 0
 uint16_t icr = 0xffff;
 String line;
 
-// Used to generate time for the cos wave
-unsigned long timer = 0;
- 
 void setup() {
   Serial.begin(9600);
-  Serial.println("Arduino interactive 16-bit PWM");  
-  Serial.println("");  
-  Serial.println("Resolution: a-i (8-16 bit)");  
-  Serial.println("Value: number 0-65535");  // or 0-255 or 0-511 etc.
   OCR1A=0;
   OCR1B=0;
   setupPWM16(10);
 }
- 
-void loop() {
-  
- timer = millis(); // updating time
- int ledValue = OFFSET + AMPLITUDE*(cos((OMEGA*timer)+PHASE));
- analogWrite16(LED_PIN, checkValue(ledValue));
 
-Serial.println(checkValue(ledValue));
- if(Serial.available()>0) {
+void loop() {
+  if(Serial.available()>0) {
     
     line=Serial.readString();
     line.trim();
@@ -59,15 +26,11 @@ Serial.println(checkValue(ledValue));
         uint16_t value = line.toInt();
         Serial.print("Value:");
         Serial.println(value);
-        analogWrite16(LED_PIN,value);
+        analogWrite16(9,value);
       }
     }
   }
-}
- 
-// Useful to avoid LED values outside the bounds [0;255]
-int checkValue(int val) {
-  return constrain(val, MIN_VAL, MAX_VAL);
+
 }
 
 void setupPWM16(int resolution) {
@@ -101,14 +64,7 @@ void analogWrite16(uint8_t pin, uint16_t val)
     digitalWrite(pin, LOW);
     
   } else {
-     DDRB  |= _BV(PB1) | _BV(PB2);       /* set pins as outputs */
-  TCCR1A = _BV(COM1A1) | _BV(COM1B1)  /* non-inverting PWM */
-        | _BV(WGM11);                 /* mode 14: fast PWM, TOP=ICR1 */
-  TCCR1B = _BV(WGM13) | _BV(WGM12)
-        | _BV(CS11);                  /* prescaler 1 */
-  ICR1 = icr;     
   switch (pin) {
-    
     case  9: OCR1A = val; break;
     case 10: OCR1B = val; break;
   }
